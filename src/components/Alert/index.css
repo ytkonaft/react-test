@@ -1,0 +1,11 @@
+.alert {
+    position: fixed;
+    left: 50%;
+    top: 2px;
+    background: #4BB543;
+    z-index: 10;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transform: translateX(-50%)
+}

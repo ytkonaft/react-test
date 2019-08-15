@@ -1,4 +1,8 @@
-.App {
+
+.input-wrp{ 
+  padding: 15px 25px;
+}
+.charts-wrp {
   display: flex;
 }
 .right-chart,
