@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {PureComponent} from 'react';
+import { subscribe, unSubscribe } from './services/socket.service';
+import LineChart from './components/LineChart'
+import BarChart from './components/BarChart'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends PureComponent {
+  state = {
+    chartData: []
+  }
+
+  componentDidMount() {
+    this.handleSubscribe();
+  }
+
+  componentWillUnmount() {
+    unSubscribe()
+  }
+
+  handleSubscribe = () => {
+    subscribe((data) => {
+      this.setState({
+        chartData: [...this.state.chartData, data]
+      })
+    })
+  }
+
+  render() {
+    const {
+      state: {
+        chartData
+      }
+    } = this;
+    return (
+      <div className="App"> 
+        <div className="left-chart">
+          <LineChart data={chartData}/>
+        </div>
+        <div className="right-chart">
+          <BarChart data={chartData}/>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
